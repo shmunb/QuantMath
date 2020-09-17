@@ -68,6 +68,10 @@ public:
         return phi(x);
     }
 
+    Interval GetInterval() {
+        return interval;
+    }
+
     void DerivativeMemorized() {
         deriv_data.reserve(int(floor(interval.second - interval.first)));
 

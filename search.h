@@ -15,3 +15,11 @@ Interval SimpleIterationSearch(double a, double b, double precision);
 Interval BinarySearch(double a, double b, double precision);
 
 Interval SecantSearch(double a, double b, double precision);
+
+Interval NewtonSearch(Function f);
+
+Interval SimpleIterationSearch(Function f);
+
+Interval BinarySearch(Function f);
+
+Interval SecantSearch(Function f);
