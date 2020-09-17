@@ -75,11 +75,11 @@ Interval NewtonSearch(Function f, double precision = 0.001) {
     double b = f.GetInterval().first;
     auto start = a;
 
-    while (!f(start) * SecondDerivative(start) > 0) {
+    while (!f(start) * f.SecondDerivative(start) > 0) {
         start += precision;
     }
     while (abs(f(start)) > precision) {
-        start = start - Func(start) / Derivative(start);
+        start = start - f(start) / f.Derivative(start);
     }
 
     return { start,start };
@@ -96,14 +96,14 @@ Interval BinarySearch(Function f, double precision = 0.001) {
 
     while (abs(b - a) > precision) {
 
-        if (Func(a) == 0 || Func(b) == 0) {
+        if (f(a) == 0 || f(b) == 0) {
             cout << "Hit! " << endl;
             break;
         }
 
         double mid = a + (b - a) / 2;
 
-        Func(mid)* Func(a) > 0 ? a = mid : b = mid;
+        f(mid)* f(a) > 0 ? a = mid : b = mid;
     }
 
     return { a , b };

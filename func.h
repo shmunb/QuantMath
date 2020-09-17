@@ -23,11 +23,11 @@ class Function {
 private:
 
     double f(double x) {
-        return x;               // enter your function here, parsing via console later 
+        return x * x - exp(-x);               // enter your function here, parsing via console later 
     }
 
     double phi(double x) {
-        return x;               // enter phi-function for IterationSearch
+        return exp(-x)/x;               // enter phi-function for IterationSearch
     }
 
     Interval interval;

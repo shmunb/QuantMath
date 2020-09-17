@@ -34,9 +34,20 @@ int main()
 
     Interval res;
 
-    {
+    {   
+
+        
         LOG_DURATION("Elapsed time: ")
-        res = SimpleIterationSearch(0.5, 1, PRECISION);
+        res = NewtonSearch(0.5, 1, PRECISION);
+    }
+
+    cout << setprecision(6) << res.first << " : " << Func(res.first) << endl << res.second << " : " << Func(res.second) << endl;
+
+
+    {
+        Function f({ 0.5, 1 }, PRECISION);
+        LOG_DURATION("Elapsed time: ")
+        res = NewtonSearch(f, PRECISION);
     }
     
 
