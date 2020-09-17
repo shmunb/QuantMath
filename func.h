@@ -23,7 +23,7 @@ class Function {
 private:
 
     double f(double x) {
-        return x * x - exp(-x);               // enter your function here, parsing via console later 
+        return x * x * x - x + 1;               // enter your function here, parsing via console later 
     }
 
     double phi(double x) {
@@ -80,19 +80,3 @@ public:
         }
     }
 };
-
-inline double Func(double x) {
-    return x * x - exp(-x);
-}
-
-inline double Derivative(double x) {
-    return 2 * x + exp(-x);
-}
-
-inline double SecondDerivative(double x) {
-    return 2 - exp(-x);
-}
-
-inline double Phi(double x) {
-    return exp(-x)/x;
-}

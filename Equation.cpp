@@ -34,23 +34,15 @@ int main()
 
     Interval res;
 
-    {   
-
-        
-        LOG_DURATION("Elapsed time: ")
-        res = NewtonSearch(0.5, 1, PRECISION);
-    }
-
-    cout << setprecision(6) << res.first << " : " << Func(res.first) << endl << res.second << " : " << Func(res.second) << endl;
-
+    Function f({ -2, -1 }, PRECISION);
 
     {
-        Function f({ 0.5, 1 }, PRECISION);
+        
         LOG_DURATION("Elapsed time: ")
         res = NewtonSearch(f, PRECISION);
     }
     
 
-    cout << setprecision(6) << res.first << " : " << Func(res.first) << endl << res.second << " : " << Func(res.second) << endl;
+    cout << setprecision(6) << res.first << " : " << f(res.first) << endl << res.second << " : " << f(res.second) << endl;
 
 }
