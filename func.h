@@ -5,10 +5,13 @@
 #include <vector>
 #include <exception>
 
-void log_iterations_csv() {}
-
 using namespace std;
 using Interval = pair<double, double>;
+
+void log_iterations_csv(const string& name) {
+
+}
+
 
 // 1 // x*x*x - x + 1
 
