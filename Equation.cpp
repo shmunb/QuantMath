@@ -20,7 +20,6 @@ int main()
 
     int x = 0;
     auto node = Parse(tokens.begin(), tokens.end(), x);
-    std::cout << "Hello World!\n";
 
     cout << "Enter x: ";
     while (cin >> x) {

@@ -35,7 +35,7 @@ private:
     vector<double> deriv_data;
 
 public:
-    Function(Interval interval_, double precision_ = 0.01) : precision(precision_), interval(interval_) {
+    Function(Interval interval_, double precision_ = 0.001) : precision(precision_), interval(interval_) {
 
         if (interval.second <= interval.first) {
             throw(invalid_argument("Incorrect interval args"));
