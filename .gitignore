@@ -1,0 +1,6 @@
+/.vs
+/Debug
+/exprtk
+*.sln
+*.csv
+*.vcxproj*
