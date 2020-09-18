@@ -38,7 +38,7 @@ int main()
     {
         
         LOG_DURATION("Elapsed time: ")
-        res = NewtonSearch(f, PRECISION);
+        res = NewtonSearch3(f, PRECISION);
     }
     
 

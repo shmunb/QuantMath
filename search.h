@@ -10,6 +10,8 @@ using Interval = pair<double, double>;
 
 Interval NewtonSearch(Function f, double precision);
 
+Interval NewtonSearch3(Function f, double precision);
+
 Interval SimpleIterationSearch(Function f, double precision);
 
 Interval BinarySearch(Function f, double precision);

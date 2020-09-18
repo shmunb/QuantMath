@@ -27,7 +27,7 @@ private:
     }
 
     double phi(const double x) const {
-        return exp(-x)/x;               // enter phi-function for IterationSearch
+        return exp(-x)/x;                       // enter phi-function for IterationSearch
     }
 
     Interval interval;
@@ -49,7 +49,7 @@ public:
 
     double operator() (const double x) const {
 
-        if (x < interval.first || x > interval.second) {
+        if (x < interval.first - 0.5 || x > interval.second + 0.5) {
             throw(out_of_range("x arg out of range"));
         }
 
@@ -57,14 +57,29 @@ public:
     }
 
     double Derivative(const double x) const {
+
+        if (x < interval.first - 0.5 || x > interval.second + 0.5) {
+            throw(out_of_range("x arg out of range"));
+        }
+
         return (f(x + precision) - f(x - precision) / (2 * precision));         // Not that precise but works fast
     }
 
     double SecondDerivative(const double x) const {
+
+        if (x < interval.first - 0.5 || x > interval.second + 0.5) {
+            throw(out_of_range("x arg out of range"));
+        }
+
         return (Derivative(x + precision) - Derivative(x - precision) / (2 * precision));
     }
 
-    double HigherDerivative(const int n, const double x) const {
+    double HigherDerivative(const int n, const double x) const {    
+
+        if (x < interval.first - 0.5 || x > interval.second + 0.5) {
+            throw(out_of_range("x arg out of range"));
+        }
+
         if (n == 0) {
             return f(x);
         }
@@ -75,6 +90,11 @@ public:
     }
 
     double Phi(const double x) const{
+
+        if (x < interval.first - 0.5 || x > interval.second + 0.5) {
+            throw(out_of_range("x arg out of range"));
+        }
+
         return phi(x);
     }
 
