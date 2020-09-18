@@ -8,7 +8,7 @@ Interval NewtonSearch(Function f, double precision = 0.001) {
     double b = f.GetInterval().first;
     auto start = a;
 
-    while (!f(start) * f.SecondDerivative(start) > 0) {
+    while (!f(start) * f.SecondDerivative(start) > 0) {             // Newton Condition
         start += precision;
     }
     while (abs(f(start)) > precision) {
@@ -58,4 +58,14 @@ Interval SecantSearch(Function f, double precision = 0.001) {
     }
 
     return { a , b };
+}
+
+int DescartesRootsNumber(Function f, double precision) {
+
+    vector<double> Fa(8, 0);              // Stourm's series for function
+    vector<double> Fb(8, 0);
+
+
+
+    return 0;
 }
