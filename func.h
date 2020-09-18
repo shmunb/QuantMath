@@ -5,6 +5,8 @@
 #include <vector>
 #include <exception>
 
+void log_iterations_csv() {}
+
 using namespace std;
 using Interval = pair<double, double>;
 
