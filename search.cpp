@@ -18,8 +18,6 @@ Interval NewtonSearch(Function f, double precision = 0.001) {
     return { start,start };
 }
 
-
-
 // xn - f/f' - f''*f^2/2f'^3
 // | f*f'' - f'''*f^2/2f'^3 - f''*(f/f'^2 - 3f^2*/2f'^4) | < 1
 // abs(f(x)*f(x)*(f.HigherDerivative(3, x)*f.Derivative(x) - 3*f.SecondDerivative(x)*f.SecondDerivative(x))/(2*exp(4*log(f.Derivative(x)))))
@@ -34,8 +32,17 @@ Interval NewtonSearch3(Function f, double precision) {
                         / (2 * exp(4 * log(f.Derivative(x))))) > 1 ) 
     {  x += precision;  }
 
+    string filename = "Newton3_test.csv";
+
+    CSV_LOGGER(filename)
+    
+    size_t i = 0;
+    
     while (abs(f(x)) > precision) {
+        
         x = x - f(x) / f.Derivative(x) - f.SecondDerivative(x)*f(x)*f(x)/(2* f.Derivative(x) * f.Derivative(x) * f.Derivative(x));
+        ++i;
+        LOG(filename, x, f(x), i)
     }
 
     return { x,x };

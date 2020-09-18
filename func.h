@@ -8,11 +8,6 @@
 using namespace std;
 using Interval = pair<double, double>;
 
-void log_iterations_csv(const string& name) {
-
-}
-
-
 // 1 // x*x*x - x + 1
 
 // 2 // x*x*x - x*x - 9*x + 9;
