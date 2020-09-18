@@ -23,11 +23,11 @@ class Function {
 private:
 
     double f(double x) {
-        return x;               // enter your function here, parsing via console later 
+        return x * x * x - x + 1;               // enter your function here, parsing via console later 
     }
 
     double phi(double x) {
-        return x;               // enter phi-function for IterationSearch
+        return exp(-x)/x;               // enter phi-function for IterationSearch
     }
 
     Interval interval;
@@ -35,7 +35,7 @@ private:
     vector<double> deriv_data;
 
 public:
-    Function(Interval interval_, double precision_ = 0.01) : precision(precision_), interval(interval_) {
+    Function(Interval interval_, double precision_ = 0.001) : precision(precision_), interval(interval_) {
 
         if (interval.second <= interval.first) {
             throw(invalid_argument("Incorrect interval args"));
@@ -68,6 +68,10 @@ public:
         return phi(x);
     }
 
+    Interval GetInterval() {
+        return interval;
+    }
+
     void DerivativeMemorized() {
         deriv_data.reserve(int(floor(interval.second - interval.first)));
 
@@ -76,19 +80,3 @@ public:
         }
     }
 };
-
-inline double Func(double x) {
-    return x * x - exp(-x);
-}
-
-inline double Derivative(double x) {
-    return 2 * x + exp(-x);
-}
-
-inline double SecondDerivative(double x) {
-    return 2 - exp(-x);
-}
-
-inline double Phi(double x) {
-    return exp(-x)/x;
-}

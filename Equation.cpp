@@ -20,7 +20,6 @@ int main()
 
     int x = 0;
     auto node = Parse(tokens.begin(), tokens.end(), x);
-    std::cout << "Hello World!\n";
 
     cout << "Enter x: ";
     while (cin >> x) {
@@ -34,12 +33,15 @@ int main()
 
     Interval res;
 
+    Function f({ -2, -1 }, PRECISION);
+
     {
+        
         LOG_DURATION("Elapsed time: ")
-        res = SimpleIterationSearch(0.5, 1, PRECISION);
+        res = NewtonSearch(f, PRECISION);
     }
     
 
-    cout << setprecision(6) << res.first << " : " << Func(res.first) << endl << res.second << " : " << Func(res.second) << endl;
+    cout << setprecision(6) << res.first << " : " << f(res.first) << endl << res.second << " : " << f(res.second) << endl;
 
 }
