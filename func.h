@@ -8,6 +8,11 @@
 using namespace std;
 using Interval = pair<double, double>;
 
+void log_iterations_csv(const string& name) {
+
+}
+
+
 // 1 // x*x*x - x + 1
 
 // 2 // x*x*x - x*x - 9*x + 9;
@@ -22,12 +27,12 @@ using Interval = pair<double, double>;
 class Function {
 private:
 
-    double f(double x) {
+    double f(const double x) const {
         return x * x * x - x + 1;               // enter your function here, parsing via console later 
     }
 
-    double phi(double x) {
-        return exp(-x)/x;               // enter phi-function for IterationSearch
+    double phi(const double x) const {
+        return exp(-x)/x;                       // enter phi-function for IterationSearch
     }
 
     Interval interval;
@@ -35,7 +40,7 @@ private:
     vector<double> deriv_data;
 
 public:
-    Function(Interval interval_, double precision_ = 0.001) : precision(precision_), interval(interval_) {
+    Function(Interval interval_, const double precision_ = 0.001) : precision(precision_), interval(interval_) {
 
         if (interval.second <= interval.first) {
             throw(invalid_argument("Incorrect interval args"));
@@ -47,28 +52,58 @@ public:
 
     }
 
-    double operator() (double x) {
+    double operator() (const double x) const {
 
-        if (x < interval.first || x > interval.second) {
+        if (x < interval.first - 0.5 || x > interval.second + 0.5) {
             throw(out_of_range("x arg out of range"));
         }
 
         return f(x);
     }
 
-    double Derivative(double x) {
+    double Derivative(const double x) const {
+
+        if (x < interval.first - 0.5 || x > interval.second + 0.5) {
+            throw(out_of_range("x arg out of range"));
+        }
+
         return (f(x + precision) - f(x - precision) / (2 * precision));         // Not that precise but works fast
     }
 
-    double SecondDerivative(double x) {
+    double SecondDerivative(const double x) const {
+
+        if (x < interval.first - 0.5 || x > interval.second + 0.5) {
+            throw(out_of_range("x arg out of range"));
+        }
+
         return (Derivative(x + precision) - Derivative(x - precision) / (2 * precision));
     }
 
-    double Phi(double x) {
+    double HigherDerivative(const int n, const double x) const {    
+
+        if (x < interval.first - 0.5 || x > interval.second + 0.5) {
+            throw(out_of_range("x arg out of range"));
+        }
+
+        if (n == 0) {
+            return f(x);
+        }
+        else if (n == 1) {
+            return Derivative(x);
+        }
+        else return (HigherDerivative(n - 1, x + precision) - HigherDerivative(n - 1, x - precision) / (2 * precision));
+    }
+
+    double Phi(const double x) const{
+
+        if (x < interval.first - 0.5 || x > interval.second + 0.5) {
+            throw(out_of_range("x arg out of range"));
+        }
+
         return phi(x);
     }
 
-    Interval GetInterval() {
+    Interval GetInterval() const {
         return interval;
     }
 
@@ -78,5 +113,29 @@ public:
         for (double x = interval.first; abs(interval.second - x) > precision * precision; x += precision) {
             deriv_data.push_back((f(x + precision) - f(x - precision)) / (2 * precision));                          // Dumb method, polynomic soon
         }
+    }
+};
+
+class Polynom : private Function {
+
+    vector<double> _coef;
+
+    double f(double x) {
+        double res = 0;
+        for (size_t i = 0; i < _coef.size(); ++i) {
+            res += _coef[i] * exp(i*log(x)) ;
+        }
+    }
+
+    double phi(double x) {                              // super dumb implementation of phi
+        double res = 0;
+        _coef[1]++;
+        for (size_t i = 0; i < _coef.size(); ++i) {
+            res += _coef[i] * exp(i * log(x));
+        }
+        _coef[1]--;
+
+        return res;
+    
     }
 };
