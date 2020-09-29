@@ -9,7 +9,7 @@
 #include <iomanip>
 
 
-const double PRECISION = 0.001;
+const double PRECISION = 0.0001;
 const double PRECISION2 = 0.0005;
 
 
@@ -29,29 +29,27 @@ int main()
     }*/
 
 
+    //Matrix<double> m = {
+    //    {1, 2, 3},
+    //    {3, 4, 5},
+    //    {9, 8, 7}
+    //};
 
-    //cout << a << ":" << Func(a) <<  " " << b << ":" << Func(a) << endl;
+    //cout << m << endl; 
 
-    Matrix<double> m = {
-        {1, 2, 3},
-        {3, 4, 5},
-        {9, 8, 7}
-    };
+    //GaussByMainMeaning(m);
 
-    cout << m << endl; 
+    Interval res;
 
-    GaussByMainMeaning(m);
-    /*Interval res;
-
-    Function f({ -2, -1 }, PRECISION);
+    Function f({ 7, 7.5 }, PRECISION);
 
     {
         
         LOG_DURATION("Elapsed time: ")
-        res = NewtonSearch3(f, PRECISION);
+        res = NewtonSearch(f, PRECISION);
     }
     
 
-    cout << setprecision(6) << res.first << " : " << f(res.first) << endl << res.second << " : " << f(res.second) << endl;*/
+    cout << setprecision(6) << res.first << " : " << f(res.first) << endl << res.second << " : " << f(res.second) << endl;
 
 }
