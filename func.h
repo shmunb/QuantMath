@@ -18,30 +18,33 @@ using Interval = pair<double, double>;
 
 // 6 // x*x*x - x + 1
 
+// Ырср:
+// p) exp(0,424*x) - 2,831*x = 0, phi1 = exp(0.424x)/2.831, phi2 = ln(2.831*x)/0.424 ;
+// ф) arctg(x - 1) + 2*x = 0, phi = arctg(x - 1)/2 ;
+
 
 class Function {
 private:
 
     double f(const double x) const {
-        return x * x * x - x + 1;               // enter your function here, parsing via console later 
+        return  exp(0.424 * x) - 2.831 * x;               // enter your function here, parsing via console later 
     }
 
     double phi(const double x) const {
-        return exp(-x)/x;                       // enter phi-function for IterationSearch
+        return log(2.831 * x) / 0.424;                       // enter phi-function for IterationSearch
     }
 
     Interval interval;
     double precision;
-    vector<double> deriv_data;
 
 public:
-    Function(Interval interval_, const double precision_ = 0.001) : precision(precision_), interval(interval_) {
+    Function(Interval interval_, const double precision_ = 0.0001) : precision(precision_), interval(interval_) {
 
         if (interval.second <= interval.first) {
             throw(invalid_argument("Incorrect interval args"));
         }
 
-        if (abs(precision) < 0.0000001 || precision < 0) {
+        if (abs(precision) < 0.000000001 || precision < 0) {
             throw(invalid_argument("Incorrect precision"));
         }
 
@@ -91,9 +94,9 @@ public:
 
     double Phi(const double x) const{
 
-        if (x < interval.first - 0.5 || x > interval.second + 0.5) {
+        /*if (x < interval.first - 0.5 || x > interval.second + 0.5) {
             throw(out_of_range("x arg out of range"));
-        }
+        }*/
 
         return phi(x);
     }
@@ -102,13 +105,6 @@ public:
         return interval;
     }
 
-    void DerivativeMemorized() {
-        deriv_data.reserve(int(floor(interval.second - interval.first)));
-
-        for (double x = interval.first; abs(interval.second - x) > precision * precision; x += precision) {
-            deriv_data.push_back((f(x + precision) - f(x - precision)) / (2 * precision));                          // Dumb method, polynomic soon
-        }
-    }
 };
 
 class Polynom : private Function {
