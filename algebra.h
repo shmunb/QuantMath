@@ -50,9 +50,9 @@ template<typename T>
 ostream& operator<<(ostream& os, const vector<T>& v) {
 	os << "|";
 	for (size_t i = 0; i < v.size() - 1; ++i) {
-		os << setw(4) << v[i] << ", ";
+		os << setw(6) << v[i] << ", ";
 	}
-	os << setw(4) << v.back() << "|";
+	os << setw(6) << v.back() << "|";
 
 	return os;
 
@@ -96,18 +96,18 @@ Matrix<T> operator-(const Matrix<T>& l, const Matrix<T>& r) {
 template<typename T>
 ostream& operator<<(ostream& os, const Matrix<T>& m) {
 	
-	for (size_t i = 0; i < m.size(); ++i) {
-		os << "-----";
+	for (size_t i = 0; i < m.size() + 2; ++i) {
+		os << "------";
 	}
 
 	os << endl;
 
 	for (const auto& v : m) {
-		os << setprecision(2) << setw(5) << v << endl;
+		os << setprecision(4) << setw(6) << v << endl;
 	}
 
-	for (size_t i = 0; i < m.size(); ++i) {
-		os << "-----";
+	for (size_t i = 0; i < m.size() + 2; ++i) {
+		os << "------";
 	}
 
 	return os;
@@ -120,31 +120,41 @@ void GaussByMainMeaning(Matrix<T>& m) {
 
 		int maxptr = i;
 		double max = -1;
-		for (size_t j = i; j < m.size(); ++j) {
+		/*for (size_t j = i; j < m.size(); ++j) {
 			if (abs(m[i][j]) > max) {
 				max = abs(m[i][j]);
 				maxptr = j;
 			}
+		}*/
+
+		for (size_t j = i; j < m.size(); ++j) {
+			if (abs(m[j][i]) > max) {
+				max = abs(m[j][i]);
+				maxptr = j;
+			}
 		}
+
 
 		if (abs(max + 1) < 0.0001) {
 			throw(runtime_error("Cannot find maximal element in matrix"));
 		}
 
+		if (i != maxptr) {
+			swap(m[i], m[maxptr]);
+		}
 
-		if (i != maxptr) { 
+		/*if (i != maxptr) { 
 			for (size_t j = 0; j < m[i].size(); ++j) {
 				swap(m[j][i], m[j][maxptr]);
 			} 
-		}
+		}*/
 
 		for (size_t j = i + 1; j < m.size(); ++j) {
 			m[j] = m[j] - (m[j][i] / m[i][i]) * m[i];
 		
 		}
 
-
-		cout << m;
+		cout << m << endl;
 		
 	}
 }

@@ -38,7 +38,7 @@ int main()
         {9, 8, 7}
     };
 
-    cout << m; 
+    cout << m << endl; 
 
     GaussByMainMeaning(m);
     /*Interval res;
