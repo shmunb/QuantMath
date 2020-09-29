@@ -1,6 +1,7 @@
 ﻿#include "parser.h"
 #include "search.h"
 #include "profile.h"
+#include "algebra.h"
 
 #include <iostream>
 #include <string>
@@ -31,7 +32,16 @@ int main()
 
     //cout << a << ":" << Func(a) <<  " " << b << ":" << Func(a) << endl;
 
-    Interval res;
+    Matrix<double> m = {
+        {1, 2, 3},
+        {3, 4, 5},
+        {9, 8, 7}
+    };
+
+    cout << m; 
+
+    GaussByMainMeaning(m);
+    /*Interval res;
 
     Function f({ -2, -1 }, PRECISION);
 
@@ -42,6 +52,6 @@ int main()
     }
     
 
-    cout << setprecision(6) << res.first << " : " << f(res.first) << endl << res.second << " : " << f(res.second) << endl;
+    cout << setprecision(6) << res.first << " : " << f(res.first) << endl << res.second << " : " << f(res.second) << endl;*/
 
 }
