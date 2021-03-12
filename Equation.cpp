@@ -17,6 +17,6 @@ int main()
 	double delta = 0.00103;
 	Function f({ 0, 1 });
 	cout << "Rect: " << IntegrateRect(f, 0.0003, delta) << endl;
-	cout << "Trap: " << IntegrateTrap(f, 0.00027, delta) << endl;
-	cout << "Simpson: " << IntegrateSimpson(f, 0.0015, delta) << endl;
+	cout << "Trap: " << IntegrateTrap(f, 0.00027, delta)  << endl;
+	cout << "Simpson: " << IntegrateSimpson(f, 0.0015, delta)  << endl;
 }

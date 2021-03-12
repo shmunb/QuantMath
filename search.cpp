@@ -7,7 +7,6 @@ Interval NewtonSearch(Function f, double start, double precision = 0.001 ) {
 
     string filename = "ä_newton_log.csv";
     CSV_LOGGER(filename)
-    size_t i = 0;
 
     while (f(start) * f.SecondDerivative(start) < 0.0001) {             // Newton Condition
         start -= 0.01;
@@ -15,10 +14,8 @@ Interval NewtonSearch(Function f, double start, double precision = 0.001 ) {
 
 
     while (abs(f(start)) > precision) {
-
-        ++i;
         start = start - f(start) / f.Derivative(start);
-        LOG (filename, start, f(start), i)
+        LOG (start, f(start))
     }
 
     return { start,start };
@@ -40,13 +37,10 @@ Interval NewtonSearch3(Function f, double precision = 0.0001) {
 
     string filename = "newton3_log.csv";
     CSV_LOGGER(filename)    
-    size_t i = 0;
     
     while (abs(f(x)) > precision) {
-        
         x = x - f(x) / f.Derivative(x) - f.SecondDerivative(x)*f(x)*f(x)/(2* f.Derivative(x) * f.Derivative(x) * f.Derivative(x));
-        ++i;
-        LOG(filename, x, f(x), i)
+        LOG(x, f(x))
     }
 
     return { x,x };
@@ -61,16 +55,14 @@ Interval SimpleIterationSearch(Function f, double precision = 0.0001) {
 
     string filename = "iteration_log.csv";
     CSV_LOGGER(filename)
-    size_t i = 0;
 
     while (abs(f.Phi(start + precision) - f.Phi(start - precision))/(2*precision) > 1) {             // SI Condition
         start += precision;
     }
 
     while (abs(f(start)) > precision) {
-        ++i;
         start = f.Phi(start);
-        LOG(filename, start, f(start), i)
+        LOG(start, f(start))
     }
 
 
@@ -84,11 +76,9 @@ Interval BinarySearch(Function f, double precision = 0.0001) {
     double b = f.GetInterval().second;
 
     string filename = "binary_log.csv";
-    size_t i = 0;
     CSV_LOGGER(filename)
 
     while (abs(b - a) > precision) {
-        ++i;
         if (f(a) == 0 || f(b) == 0) {
             cout << "Hit! " << endl;
             break;
@@ -98,7 +88,7 @@ Interval BinarySearch(Function f, double precision = 0.0001) {
 
         f(mid)* f(a) > 0 ? a = mid : b = mid;
 
-        LOG(filename, mid, f(mid), i)
+        LOG(mid, f(mid))
     }
 
     return { a , b };
@@ -110,7 +100,6 @@ Interval SecantSearch(Function f, double precision = 0.0001) {
     double b = f.GetInterval().first;
 
     string filename = "secant_log.csv";
-    size_t i = 0;
     CSV_LOGGER(filename)
 
     while (abs(b - a) > precision) {
@@ -122,7 +111,7 @@ Interval SecantSearch(Function f, double precision = 0.0001) {
         auto point = a + (a - b) * f(a) / (f(b) - f(a));
         f(point)* f(a) > 0 ? a = point : b = point;
 
-        LOG(filename, point, f(point), i)
+        LOG(point, f(point))
     }
 
     return { a , b };
