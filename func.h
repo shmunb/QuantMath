@@ -4,34 +4,22 @@
 #include <cmath>
 #include <vector>
 #include <exception>
+#include <stdexcept>
 
 using namespace std;
 using Interval = pair<double, double>;
 
-// 1 // x*x*x - x + 1
-
-// 2 // x*x*x - x*x - 9*x + 9;
-
-// 3 // x*x - exp(-x)
-
-// 5 // x*x - 2*x + 1
-
-// 6 // x*x*x - x + 1
-
-// Ырср:
-// p) exp(0,424*x) - 2,831*x = 0, phi1 = exp(0.424x)/2.831, phi2 = ln(2.831*x)/0.424 ;
-// ф) arctg(x - 1) + 2*x = 0, phi = arctg(x - 1)/2 ;
 
 
 class Function {
 private:
 
     double f(const double x) const {
-        return  exp(0.424 * x) - 2.831 * x;               // enter your function here, parsing via console later 
+        return  log(1 + x * x) / (x * sqrt(x));             // enter your function here, parsing via console later 
     }
 
     double phi(const double x) const {
-        return log(2.831 * x) / 0.424;                       // enter phi-function for IterationSearch
+        return atan(x - 1)/2;                       // enter phi-function for IterationSearch
     }
 
     Interval interval;
@@ -52,9 +40,9 @@ public:
 
     double operator() (const double x) const {
 
-        if (x < interval.first - 0.5 || x > interval.second + 0.5) {
+        /*if (x < interval.first - 0.5 || x > interval.second + 0.5) {
             throw(out_of_range("x arg out of range"));
-        }
+        }*/
 
         return f(x);
     }
@@ -66,6 +54,7 @@ public:
         }
 
         return (f(x + precision) - f(x - precision) / (2 * precision));         // Not that precise but works fast
+
     }
 
     double SecondDerivative(const double x) const {
@@ -100,6 +89,8 @@ public:
 
         return phi(x);
     }
+
+
 
     Interval GetInterval() const {
         return interval;

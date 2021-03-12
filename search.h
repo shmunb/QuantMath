@@ -9,7 +9,7 @@
 
 using Interval = pair<double, double>;
 
-Interval NewtonSearch(Function f, double precision);
+Interval NewtonSearch(Function f, double start, double precision);
 
 Interval NewtonSearch3(Function f, double precision);
 

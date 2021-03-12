@@ -2,20 +2,18 @@
 
 #include "search.h"
 
-Interval NewtonSearch(Function f, double precision = 0.001) {
-
-    double a = f.GetInterval().first;
-    double b = f.GetInterval().first;
-    auto start = a;
+Interval NewtonSearch(Function f, double start, double precision = 0.001 ) {
 
 
-    string filename = "newton_log.csv";
+    string filename = "ä_newton_log.csv";
     CSV_LOGGER(filename)
     size_t i = 0;
 
-    while (f(start) * f.SecondDerivative(start) < 0.1) {             // Newton Condition
-        start += 0.1;
+    while (f(start) * f.SecondDerivative(start) < 0.0001) {             // Newton Condition
+        start -= 0.01;
     }
+
+
     while (abs(f(start)) > precision) {
 
         ++i;
