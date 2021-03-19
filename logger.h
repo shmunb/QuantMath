@@ -15,17 +15,17 @@ class Logger {
 public:
 	explicit Logger(string& _file) {
 		file = DIR + move(_file);
-		data << "Iter" << ',' << "x" << ',' << "y" << endl;
+		data << "Iter" << ',' << "x" << ',' << "y" << '\n';
 	}
 
 	void tick(const double _x, const double _y) {
-		data << setprecision(6) << iter << ',' << _x << ',' << _y << endl;
+		data << setprecision(6) << iter << ',' << _x << ',' << _y << '\n';
 		iter++;
 	}
 
 	~Logger() {
 		ofstream output(file);
-		output << data.rdbuf();
+		output << data.str();
 	}
 };
 
