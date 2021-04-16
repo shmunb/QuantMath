@@ -10,16 +10,20 @@ using namespace std;
 using Interval = pair<double, double>;
 
 
+// tg(ctg(x)) = ctg(tg(x))
+// x = arcctg(arctg(ctg(tg(x))))
 
 class Function {
 private:
 
-    double f(const double x) const {
-        return  log(1 + x * x) / (x * sqrt(x));             // enter your function here, parsing via console later 
+    double f(const double x, const double y = 1) const {
+
+        return  (y*y - 3*x*y - 2*x*x)/(x*x - x*y);             // enter your function here, parsing via console later 
     }
 
     double phi(const double x) const {
-        return atan(x - 1)/2;                       // enter phi-function for IterationSearch
+
+        return atan(1/(atan(1/tan((tan(x))))));                       // enter phi-function for IterationSearch
     }
 
     Interval interval;
@@ -38,13 +42,13 @@ public:
 
     }
 
-    double operator() (const double x) const {
+    double operator() (const double x, const double y = 1) const {
 
         /*if (x < interval.first - 0.5 || x > interval.second + 0.5) {
             throw(out_of_range("x arg out of range"));
         }*/
 
-        return f(x);
+        return f(x, y);
     }
 
     double Derivative(const double x) const {

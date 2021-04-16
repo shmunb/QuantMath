@@ -1,9 +1,12 @@
 #pragma once
 
+#include <iostream>
 #include <fstream>
 #include <iomanip>
 #include <string>
 #include <sstream>
+
+using namespace std;
 
 const string DIR = "./results/";
 
@@ -24,6 +27,7 @@ public:
 	}
 
 	~Logger() {
+		cerr << "LOGGER: logged " << iter << " iterations into " << file << endl;
 		ofstream output(file);
 		output << data.str();
 	}

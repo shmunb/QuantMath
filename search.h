@@ -6,6 +6,7 @@
 #include "func.h"
 #include "logger.h"
 
+using namespace std;
 
 using Interval = pair<double, double>;
 
